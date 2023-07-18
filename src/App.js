@@ -4,18 +4,21 @@ import CartCheckout from "./components/CartCheckout";
 import Heros from "./components/Heros";
 import ProductCard from "./components/ProductCard";
 import Home from "./container/Home";
+import ContactForm from "./components/ContactForm";
 
 
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Heros />} />
-        <Route path="/menu" element={<ProductCard />} />
-        <Route path="/cart" element={<CartCheckout />} />
-      </Routes>
+   
+    <Routes>
+      <Route path="/" element={<Heros />} />
+      <Route path="/menu" element={<ProductCard />} />
+      <Route path="/cart" element={<CartCheckout />} />
+      <Route path="/contact" element={<ContactForm />} />
+    </Routes>
     </div>
-  );
+    );
 }
 
 export default App;

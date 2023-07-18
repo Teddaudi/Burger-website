@@ -35,9 +35,9 @@ const Heros = () => {
                     <li className="nav-link company">Cart </li>
                     </Link>
 
-
+                    <Link to='/contact'>
                     <li className="nav-link">Contact Us</li>
-
+                    </Link>
                     <li className="nav-link push-right">Login</li>
                     <li className="nav-link btn">Register</li>
                 </ul>

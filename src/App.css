@@ -1,38 +1,62 @@
-.App {
-  text-align: center;
+.App{
+    width: 100vw;
+    height: 100vh;
+    
+}
+::-webkit-scrollbar{
+    width: 5px;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-color: orange;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+h1 {
+    font-size: var(--h1-font-size);
   }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  h1,
+  h3 {
+    font-weight: var(--font-weight-light);
   }
-  to {
-    transform: rotate(360deg);
+
+  h2 {
+    font-size: var(--h2-font-size);
   }
-}
+
+  h3 {
+    font-size: var(--h3-font-size);
+  }
+
+  h4 {
+    font-size: var(--h4-font-size);
+  }
+
+  h5 {
+    font-size: var(--h5-font-size);
+  }
+
+  h6 {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--h6-font-size);
+  }
+
+  p {
+    color: var(--p-color);
+    font-size: var(--p-font-size);
+    font-weight: var(--font-weight-light);
+    letter-spacing: 0.3px;
+    line-height: 2em;
+  }
+
+  .section-padding {
+    padding: 6rem 0;
+  }
+
+  .custom-icon {
+    font-size: 12px;
+    position: relative;
+    bottom: 3px;
+    left: 5px;
+    transform: rotate(-25deg);
+  }

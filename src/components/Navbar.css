@@ -1,0 +1,14 @@
+   .navbar{
+      background-color: orange !important;
+      
+   }
+   .navbar .nav-link{
+      color: white !important;
+      font-size: 18px !important;
+     
+      
+     
+   }  .nav-link{
+       display: flex !important;
+       justify-content: center !important;
+      }

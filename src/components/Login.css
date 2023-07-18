@@ -1,0 +1,53 @@
+.bannerImg {
+    position: absolute;
+    width: 282px;
+    height: 355px;
+    left: 47px;
+    top: 103px;
+  
+    background: url("../images/kindpng_5499625 1.png");
+    mix-blend-mode: normal;
+  }
+  .banner-information {
+    position: absolute;
+    width: 248px;
+    height: 273px;
+    left: 64px;
+    top: 496px;
+    
+  }
+  .banner-text h1 {
+    font-family: "Jacques Francois";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 54px;
+    /* or 135% */
+  
+    text-align: center;
+  
+    color: #ffffff;
+  }
+  .banner-text p {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 24px;
+    text-align: center;
+  
+    color: #aba6ae;
+  }
+  .arrow {
+    width: auto;
+    margin-top: 30px;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    position: relative;
+    cursor: pointer;
+    color: #ffffff;
+  }
+  .arrow:hover{
+      color: orangered;
+  }

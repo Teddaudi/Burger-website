@@ -3,6 +3,7 @@ import './Heros.css'
 import Logo from './img/logo.svg';
 import MenuClose from "./img/icon-close-menu.svg"
 import MenuIcon from "./img/icon-menu.svg"
+import { Link } from 'react-router-dom';
 // import Databiz from "./img/client-databiz.svg"
 // import ClientAudio from "./img/client-audiophile.svg"
 // import ClientMeet from "./img/client-meet.svg"
@@ -21,15 +22,18 @@ const Heros = () => {
     return (
         <div>
             <nav>
+            <Link to='/'>
                 <img src={Logo} alt="logo img" class="logo" />
+                </Link>
                 <ul className={`nav-links ${navOpen ? 'nav-open': ''}`} >
                     <img src={MenuClose} alt="close icon" className="toggle-nav-btn close-nav" onClick={toggleNav} />
+                   <Link to='/menu'>
                     <li className="nav-link features" >Menu </li>
+                    </Link>
 
-
-
+                    <Link to='/cart'>
                     <li className="nav-link company">Cart </li>
-
+                    </Link>
 
 
                     <li className="nav-link">Contact Us</li>

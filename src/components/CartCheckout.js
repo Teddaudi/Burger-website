@@ -18,6 +18,8 @@ import {
     MDBTypography,
 } from "mdb-react-ui-kit";
 import data from '../data'
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 
 export default function CartCheckout() {
@@ -28,8 +30,13 @@ export default function CartCheckout() {
 
                     <MDBCol md="8">
                         <MDBCard className="mb-4">
-                            <MDBCardHeader className="py-3">
+
+                            <MDBCardHeader className="py-2 d-flex">
                                 <MDBTypography tag="h5" className="mb-0">
+                                    <Link to="/">
+                                        <AiOutlineArrowLeft color='black' fontSize='2.5em' onMouseOver={({ target }) => target.style.color = "orange"}
+                                            onMouseOut={({ target }) => target.style.color = "black"} className='d-flex mb-1 ' id='leftArrow' />
+                                    </Link>
                                     Cart - 2 items
                                 </MDBTypography>
                             </MDBCardHeader>

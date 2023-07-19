@@ -5,9 +5,9 @@ import './ContactForm.css';
 
 const ContactForm = () => {
     return (
-        <div className=''>
+        <div className='form mb-0 pb-0'>
            <div className='pt-10'>
-           <form id='form' className='text-center container mt-5 mb-0 ' style={{ width: '100%', maxWidth: '300px' }}>
+           <form id='form' className='text-center container mt-5 mb-2 ' style={{ width: '100%', maxWidth: '400px',height:'100%' }}>
            <h2>Contact Us</h2>
 
            <MDBInput label='Name' v-model='name' wrapperClass='mb-4' />

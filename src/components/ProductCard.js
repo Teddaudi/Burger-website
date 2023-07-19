@@ -12,20 +12,28 @@ import {
 } from "mdb-react-ui-kit";
 import './ProductCard.css'
 import data from '../data'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { Link } from 'react-router-dom';
 
 const ProductCard = () => {
-    
+
     return (
         <div>
             <MDBContainer fluid className="my-5 text-center">
+
                 <h4 className="mt-4 mb-5">
                     <strong>Our Menu</strong>
+                    <Link to="/">
+                        <AiOutlineArrowLeft color='black' fontSize='2.5em' onMouseOver={({ target }) => target.style.color = "orange"}
+                            onMouseOut={({ target }) => target.style.color = "black"} className='d-flex ' id='leftArrow' />
+                    </Link>
                 </h4>
 
                 <MDBRow>
-                {
-                    data.map((data) => (
-                    <MDBCol md="12" lg="3" className="mb-4 ">
+
+                    {
+                        data.map((data) => (
+                            <MDBCol md="12" lg="3" className="mb-4 ">
                                 <MDBCard>
                                     <MDBRipple
                                         rippleColor="light"
@@ -62,9 +70,9 @@ const ProductCard = () => {
                                         <h6 className="mb-3">Ksh {data.price}</h6>
                                     </MDBCardBody>
                                 </MDBCard>
-                                </MDBCol>
-                                ))
-                            }
+                            </MDBCol>
+                        ))
+                    }
                 </MDBRow>
             </MDBContainer>
         </div>

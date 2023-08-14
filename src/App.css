@@ -10,7 +10,9 @@
     border-radius: 10px;
     background-color: orange;
 }
-
+ul,li{
+  color: black !important;
+}
 h1 {
     font-size: var(--h1-font-size);
   }

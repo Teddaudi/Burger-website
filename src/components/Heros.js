@@ -1,48 +1,48 @@
 import React, { useState } from 'react'
 import './Heros.css'
-import Logo from './img/logo.svg';
-import MenuClose from "./img/icon-close-menu.svg"
-import MenuIcon from "./img/icon-menu.svg"
+import Logo from '../img/logo.svg';
+import MenuClose from "../img/icon-close-menu.svg"
+import MenuIcon from "../img/icon-menu.svg"
 import { Link } from 'react-router-dom';
-// import Databiz from "./img/client-databiz.svg"
-// import ClientAudio from "./img/client-audiophile.svg"
-// import ClientMeet from "./img/client-meet.svg"
-// import ClientMaker from "./img/client-maker.svg"
 
 
 const Heros = () => {
     const [navOpen, setNavOpen] = useState(false);
 
-  
+
     const toggleNav = () => {
-      setNavOpen(!navOpen);
-      console.log("clicked toggle")
+        setNavOpen(!navOpen);
+
     };
 
     return (
         <div>
-            <nav>
-            <Link to='/'>
-                <img src={Logo} alt="logo img" class="logo" />
+            <nav className='d-flex justify-content-between align-items-center' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Link to='/'>
+                    <img src={Logo} alt="logo img" className="logo" />
                 </Link>
-                <ul className={`nav-links ${navOpen ? 'nav-open': ''}`} >
+                <ul className={`nav-links ${navOpen ? 'nav-open' : ''}`} style={{ display: 'flex', alignItems: 'center', listStyle: 'none', margin: 0, padding: 0 }}>
                     <img src={MenuClose} alt="close icon" className="toggle-nav-btn close-nav" onClick={toggleNav} />
-                   <Link to='/menu'>
-                    <li className="nav-link features" >Menu </li>
+                    <li className="nav-link">
+                        <Link to='/menu' style={{ color: 'black' }}>Menu</Link>
+                    </li>
+                    <li className="nav-link">
+                        <Link to='/cart' style={{ color: 'black' }}>Cart</Link>
+                    </li>
+                    <li className="nav-link">
+                        <Link to='/contact' style={{ color: 'black' }}>Contact Us</Link>
+                    </li>
+                   <Link to='/signin'>
+                   <li className="nav-link push-right">Login</li>
+                   </Link>
+                    <Link to='/signup'>
+                    <li className="nav-link btn">Sign Up</li>
                     </Link>
-
-                    <Link to='/cart'>
-                    <li className="nav-link company">Cart </li>
-                    </Link>
-
-                    <Link to='/contact'>
-                    <li className="nav-link">Contact Us</li>
-                    </Link>
-                    <li className="nav-link push-right">Login</li>
-                    <li className="nav-link btn">Register</li>
                 </ul>
                 <img src={MenuIcon} alt="burger icon" className="toggle-nav-btn" onClick={toggleNav} />
             </nav>
+
+
 
             <main>
                 <div className="intro">

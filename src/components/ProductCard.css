@@ -4,3 +4,23 @@ body {
   #leftArrow{
     cursor: pointer;
   }
+  .cart-icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 35px;
+    color: orange;
+    margin-top: 85px;
+  }
+  .cart-count{
+    position: absolute;
+    right: 0;
+    margin-right: 30px;
+    background-color: red;
+    width: 29px; /* Set your desired width */
+    height: 29px; /* Set your desired height */
+    border-radius: 50%; /* Makes the div circular */
+    margin-top: 5px;
+    color:#fff
+  }
+  

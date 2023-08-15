@@ -6,31 +6,35 @@ import {
     MDBCard,
     MDBCardBody,
     MDBCardImage,
-    MDBIcon,
-    MDBBtn,
     MDBRipple,
 } from "mdb-react-ui-kit";
 import './ProductCard.css'
 // import data from '../data'
-import { AiOutlineArrowLeft, AiOutlineShoppingCart } from 'react-icons/ai'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { BsFillCartPlusFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
+import Notification from './Notification';
+import CartCheckout from './CartCheckout';
 
-const ProductCard = () => {
-    const [data,setData] = useState([])
+const ProductCard = ({addToCart}) => {
+    const [data, setData] = useState([])
+    const [count, setCount] = useState(0)
+    const [details, setDetails] = useState()
+    const [showModal, setShowModal] = useState(false);
+
     useEffect(() => {
         fetch('http://localhost:4000/menu') // Replace with your backend API URL
             .then(response => response.json())
             .then(value => setData(value))
             .catch(error => console.error('Error fetching menu:', error));
-    }, []);
-    console.log(data)
-    const[count,setCount]= useState(0)
-const addCart = () =>{
-   
-   setCount((prev)=>prev+1)
-   
-    console.log(count)
-}
+       
+    }, [details]);
+
+    const addCart = (products) => {
+        setDetails(products)
+        setCount((prev) => prev + 1)
+
+    }
     return (
         <div>
             <MDBContainer fluid className="my-5 text-center">
@@ -42,9 +46,10 @@ const addCart = () =>{
                             onMouseOut={({ target }) => target.style.color = "black"} className='d-flex ' id='leftArrow' />
                     </Link>
                     <Link to='/cart'>
-                    <AiOutlineShoppingCart className='cart-icon ' size={40}/>
-                    <div className='cart-count'>{count}</div>
+                        <BsFillCartPlusFill className='cart-icon' />
+                        <div className='cart-count'>{count} </div>
                     </Link>
+
                 </h4>
 
                 <MDBRow>
@@ -83,7 +88,7 @@ const addCart = () =>{
                                         <a href="#!" className="text-reset">
                                             <h5 className="card-title mb-3">{products.title}</h5>
                                         </a>
-                                        <button type="button" className="btn btn-warning mb-3" onClick={addCart}>Add To Cart</button>
+                                        <button type="button" className="btn btn-warning mb-3" onClick={() => addToCart(products)}>Add To Cart</button>
 
                                         <h6 className="mb-3">Ksh {products.price}</h6>
                                     </MDBCardBody>
@@ -93,7 +98,7 @@ const addCart = () =>{
                     }
                 </MDBRow>
             </MDBContainer>
-          
+       
         </div>
 
 
@@ -101,4 +106,3 @@ const addCart = () =>{
 }
 
 export default ProductCard
-             

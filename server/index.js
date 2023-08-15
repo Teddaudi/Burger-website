@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 app.get('/menu', async (req, res) => {
     try {
         const dishes = await Dishes.find();
-        
+
         res.json(dishes);
     } catch (error) {
         console.error(error);
@@ -29,21 +29,28 @@ app.get('/menu', async (req, res) => {
 });
 
 const port = 4000;
+mongoose.connect(MONGO_URL);
+const checkDataExists = async () => {
+    const count = await Dishes.countDocuments()
+    return count > 0;
+}
+async function seedData() {
+    const meals = products.map(product => ({
+        title: product.title,
+        price: product.price,
+        image: product.image
+    }));
+    await Dishes.insertMany(meals)
+    console.log('Data successfully added')
+}
 
 const start = async () => {
-    try {
-        //connectDB
-        await mongoose.connect(MONGO_URL);
-        const meals = products.map(product => ({
-            title: product.title,
-            price: product.price,
-            image: product.image
-        }));
-        await Dishes.create(meals)
-        app.listen(port, console.log(`Server is listening on ${port}...`));
-    } catch (error) {
-        console.error(error)
+    const dataExists = await checkDataExists()
+    if (!dataExists) {
+        await seedData()
     }
+    app.listen(port, console.log(`Server is listening on ${port}...`));
+
 }
 
 start();

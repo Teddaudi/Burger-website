@@ -16,9 +16,22 @@ import './ProductCard.css'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BsFillCartPlusFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
-const ProductCard = ({ addToCart, count, data }) => {
+const ProductCard = ({ addToCart }) => {
+    const[count,setCount]=useState(0)
+    const[menuItems,setMenuItems]=useState([])
+    useEffect(() => {
+        axios.get('http://localhost:4000/menu')
+        .then(response => {
+            setMenuItems(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching menu:', error);
+          });
+    
+      }, []);
     return (
         <div>
             <MDBContainer fluid className="my-5 text-center">
@@ -41,7 +54,7 @@ const ProductCard = ({ addToCart, count, data }) => {
                 <MDBRow>
 
                     {
-                        data.map((products) => (
+                        menuItems.map((products) => (
                             <MDBCol md="12" lg="3" className="mb-4 ">
                                 <MDBCard>
                                     <MDBRipple rippleColor="light"

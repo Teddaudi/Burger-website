@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom/dist';
-import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const SignInForm = () => {
   const navigate = useNavigate()
@@ -20,11 +20,11 @@ const SignInForm = () => {
     e.preventDefault();
 
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, formData)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user)
-        navigate('/menu')
+       
+       
       })
       .catch((error) => {
         console.error(error)
@@ -44,7 +44,7 @@ const SignInForm = () => {
             type="email"
             id="email"
             name="email"
-            // value={formData.email}
+            value={formData.email}
             onChange={onChange}
             className="form-control"
             required
@@ -58,7 +58,7 @@ const SignInForm = () => {
             type="password"
             id="password"
             name="password"
-            // value={formData.password}
+            value={formData.password}
             onChange={onChange}
             className="form-control"
             required

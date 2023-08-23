@@ -4,29 +4,35 @@ import CartCheckout from "./components/CartCheckout";
 import Heros from "./components/Heros";
 import ProductCard from "./components/ProductCard";
 import ContactForm from "./components/ContactForm";
-import SignUpForm from "./components/Signup";
-import SignInForm from "./components/Signin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SignUp from "./components/pages/SignUp";
 
 
-function App() {
+function App({user}) {
   const [cartItems, setCartItems] = useState([]);
+  const [count, setCount] = useState(0)
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:4000/menu')
+      .then(response => response.json())
+      .then(value => setData(value))
+      .catch(error => console.error('Error fetching menu:', error));
 
-  // const addToCart = (product) => {
-  //   const existingItem = cartItems.find((item) => item.id === product.id);
+  }, []);
 
-  //   if (existingItem) {
-  //     const updatedItems = cartItems.map((item) =>
-  //       item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-  //     );
-  //     setCartItems(updatedItems);
-  //   } else {
-  //     setCartItems([...cartItems, { ...product, quantity: 1 }]);
-  //   }
-  // };
   const addToCart = (product) => {
-    setCartItems((prevCartItems) => [...prevCartItems, product]);
+    const existingItem = cartItems.find((item) => item.id === product.id);
+    setCount((prev) => prev + 1)
+    if (existingItem) {
+      const updatedItems = cartItems.map((item) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      setCartItems(updatedItems);
+    } else {
+      setCartItems([...cartItems, { ...product, quantity: 1 }]);
+    }
   };
+
   const removeFromCart = (itemToRemove) => {
     const updatedItems = cartItems.filter((item) => item.id !== itemToRemove.id);
     setCartItems(updatedItems);
@@ -39,18 +45,16 @@ function App() {
     setCartItems(updatedItems);
   };
   return (
-    <div>
-
-      <Routes>
-        <Route path="/" element={<Heros />} />
-        <Route path="/menu" element={<ProductCard addToCart={addToCart} />} />
-        <Route path="/cart" element={<CartCheckout cartItems={cartItems} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />} />
-        <Route path="/contact" element={<ContactForm />} />
-        <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/signin" element={<SignInForm />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Heros />} key={1} />
+      <Route path="/menu" element={<ProductCard addToCart={addToCart} count={count} data={data} key={2} />} />
+      <Route path="/cart" element={<CartCheckout cartItems={cartItems} removeFromCart={removeFromCart} updateQuantity={updateQuantity} key={3} />} />
+      <Route path="/contact" element={<ContactForm />} key={4} />
+    </Routes>
   );
 }
 
 export default App;
+  // const addToCart = (product) => {
+  //   setCartItems((prevCartItems) => [...prevCartItems, product]);
+  // };

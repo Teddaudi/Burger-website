@@ -21,7 +21,6 @@ import data from '../data'
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-
 export default function CartCheckout({ cartItems, removeFromCart, updateQuantity }) {
     const [itemQuantities, setItemQuantities] = useState({});
 
@@ -33,7 +32,6 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
         const quantityChange = newQuantity - (itemQuantities[item.id] || 0);
         updateQuantity(item, quantityChange);
     };
-
     return (
         <section className="h-100 gradient-custom">
 
@@ -131,48 +129,85 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
                         </MDBCol>
 
 
-                        <MDBCol md="4">
-                            <MDBCard className="mb-4">
-                                <MDBCardHeader>
-                                    <MDBTypography tag="h5" className="mb-0">
-                                        Summary
-                                    </MDBTypography>
-                                </MDBCardHeader>
-                                <MDBCardBody>
-                                    <MDBListGroup flush>
-                                        <MDBListGroupItem
-                                            className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                            Products
-                                            <span>Ksh 53.98</span>
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem className="d-flex justify-content-between align-items-center px-0">
-                                            Shipping
-                                            <span>Gratis</span>
-                                        </MDBListGroupItem>
-                                        <MDBListGroupItem
-                                            className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                            <div>
-                                                <strong>Total amount</strong>
-                                                <strong>
-                                                    <p className="mb-0">(including VAT)</p>
-                                                </strong>
-                                            </div>
-                                            <span>
-                                                <strong>KSh 53.98</strong>
-                                            </span>
-                                        </MDBListGroupItem>
-                                    </MDBListGroup>
 
-                                    <MDBBtn block size="lg">
-                                        Go to checkout
-                                    </MDBBtn>
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
                     </MDBRow>
                 )}
             </MDBContainer>
         </section>
     );
 }
+
+// function CartItem({ item, updateQuantity, removeFromCart }) {
+//     const [quantity, setQuantity] = useState(item.quantity);
+
+//     const decreaseQuantity = () => {
+//         if (quantity > 1) {
+//             setQuantity(quantity - 1);
+//             updateQuantity(item, -1);
+//         }
+//     };
+
+//     const increaseQuantity = () => {
+//         setQuantity(quantity + 1);
+//         updateQuantity(item, 1);
+//     };
+
+//     return (
+//         <div className="cart-item">
+//         <div className="item-image">
+//         <img src={item.image} alt={item.title} />
+//     </div>
+//     <div className="item-details">
+//         <h3>{item.title}</h3>
+//         <p>Price: ${item.price}</p>
+//         <div className="quantity-controls">
+//             <button onClick={decreaseQuantity}>-</button>
+//             <span>{quantity}</span>
+//             <button onClick={increaseQuantity}>+</button>
+//         </div>
+//         <button onClick={() => removeFromCart(item)}>Remove</button>
+//     </div>
+//         </div>
+//     );
+// }
+//     <MDBCol md="4">
+//     <MDBCard className="mb-4">
+//         <MDBCardHeader>
+//             <MDBTypography tag="h5" className="mb-0">
+//                 Summary
+//             </MDBTypography>
+//         </MDBCardHeader>
+
+//     </MDBCard>
+// </MDBCol>
+{/*    <MDBCardBody>
+    <MDBListGroup flush>
+        <MDBListGroupItem
+            className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+            Products
+            <span>Ksh 53.98</span>
+        </MDBListGroupItem>
+        <MDBListGroupItem className="d-flex justify-content-between align-items-center px-0">
+            Shipping
+            <span>Gratis</span>
+        </MDBListGroupItem>
+        <MDBListGroupItem
+            className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+            <div>
+                <strong>Total amount</strong>
+                <strong>
+                    <p className="mb-0">(including VAT)</p>
+                </strong>
+            </div>
+            <span>
+                <strong>KSh 53.98</strong>
+            </span>
+        </MDBListGroupItem>
+    </MDBListGroup>
+
+    <MDBBtn block size="lg">
+        Go to checkout
+    </MDBBtn>
+</MDBCardBody>*/}
+
 

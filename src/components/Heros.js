@@ -32,12 +32,12 @@ const Heros = () => {
                     <li className="nav-link">
                         <Link to='/contact' style={{ color: 'black' }}>Contact Us</Link>
                     </li>
-                   <Link to='/signin'>
+                    {/* <Link to='/signin'>
                    <li className="nav-link push-right">Login</li>
                    </Link>
-                    <Link to='/signup'>
+                    <Link to='/register'>
                     <li className="nav-link btn">Sign Up</li>
-                    </Link>
+    </Link>*/}
                 </ul>
                 <img src={MenuIcon} alt="burger icon" className="toggle-nav-btn" onClick={toggleNav} />
             </nav>

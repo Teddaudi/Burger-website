@@ -25,21 +25,38 @@ import data from '../data'
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FcSimCard } from "react-icons/fc"
+import {ImBin} from 'react-icons/im'
 
-export default function CartCheckout({ cartItems, removeFromCart, updateQuantity }) {
+export default function CartCheckout({ cartItems, removeFromCart }) {
     const [itemQuantities, setItemQuantities] = useState({});
 
-    const handleQuantityChange = (item, newQuantity) => {
-        setItemQuantities((prevQuantities) => ({
-            ...prevQuantities,
-            [item.id]: newQuantity,
-        }));
-        const quantityChange = newQuantity - (itemQuantities[item.id] || 0);
-        updateQuantity(item, quantityChange);
-    };
+    // const handleQuantityChange = (item, newQuantity) => {
+    //     setItemQuantities((prevQuantities) => ({
+    //         ...prevQuantities,
+    //         [item.id]: newQuantity,
+    //     }));
+    //     const quantityChange = newQuantity - (itemQuantities[item.id] || 0);
+    //     updateQuantity(item, quantityChange);
+    // };
 
-    const [display, setDisplay] = useState(false);
-
+    // const [display, setDisplay] = useState(false);
+    const cartTotal = cartItems.reduce((total,item)=>total +item.price, 0);
+    const shippingCost = 100;
+    const Total = shippingCost +cartTotal;
+    const handleRemoveFromCart = (itemToRemove) => {
+        // console.log(itemToRemove)
+        // const updatedCart = cartItems.filter(item => item.id !== itemToRemove.id);
+        // console.log(updatedCart)
+        // removeFromCart(updatedCart);
+        const indexToRemove = cartItems.findIndex(item =>item.title === itemToRemove )
+        if(indexToRemove !== -1){
+            cartItems.splice(indexToRemove,1)
+        }else{
+            console.log(`Burger ${itemToRemove} not found in the array.`)
+        }
+        console.log(cartItems)
+    }
+    
     return (
         <section className="h-100 h-custom">
             <MDBContainer className="py-5 h-100">
@@ -67,7 +84,7 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
                         </MDBTableHead>
                        {
                         cartItems.map((data)=>(
-                            <MDBTableBody>
+                            <MDBTableBody key={data.id}>
                             <tr>
                                 <th scope="row">
                                     <div className="d-flex align-items-center">
@@ -87,27 +104,17 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
                                     </p>
                                 </td>
                                 <td className="align-middle">
-                                    <div class="d-flex flex-row align-items-center">
+                                    <div className="d-flex flex-row align-items-center">
                                         <MDBBtn className="px-2" color="link">
-                                            <MDBIcon fas icon="minus" />
+                                            <ImBin color="#dc3545" onClick={()=>handleRemoveFromCart(data)}/>
                                         </MDBBtn>
 
-                                        <MDBInput
-                                            min={0}
-                                            type="number"
-                                            size="sm"
-                                            style={{ width: "50px" }}
-                                            defaultValue={2}
-                                        />
-
-                                        <MDBBtn className="px-2" color="link">
-                                            <MDBIcon fas icon="plus" />
-                                        </MDBBtn>
+                                        
                                     </div>
                                 </td>
                                 <td className="align-middle">
                                     <p className="mb-0" style={{ fontWeight: "500" }}>
-                                        ${data.price}
+                                        KSh {data.price}
                                     </p>
                                 </td>
                             </tr>
@@ -177,7 +184,7 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
                                     style={{ fontWeight: "500" }}
                                 >
                                     <p className="mb-2">Subtotal</p>
-                                    <p className="mb-2">Ksh 23.49</p>
+                                    <p className="mb-2">Ksh {cartTotal}</p>
                                 </div>
 
                                 <div
@@ -185,7 +192,7 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
                                     style={{ fontWeight: "500" }}
                                 >
                                     <p className="mb-0">Shipping</p>
-                                    <p className="mb-0">Ksh 2.99</p>
+                                    <p className="mb-0">Ksh {shippingCost}</p>
                                 </div>
 
                                 <hr className="my-4" />
@@ -194,14 +201,14 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
                                     className="d-flex justify-content-between mb-4"
                                     style={{ fontWeight: "500" }}
                                 >
-                                    <p className="mb-2">Total (tax included)</p>
-                                    <p className="mb-2">Ksh 26.48</p>
+                                    <p className="mb-2">Total </p>
+                                    <p className="mb-2">Ksh {Total}</p>
                                 </div>
 
                                 <MDBBtn block size="lg">
                                     <div className="d-flex justify-content-between">
                                         <span>Checkout</span>
-                                        <span>Ksh 26.48</span>
+                                        <span>Ksh {Total}</span>
                                     </div>
                                 </MDBBtn>
                             </MDBCol>
@@ -215,6 +222,18 @@ export default function CartCheckout({ cartItems, removeFromCart, updateQuantity
     );
 }
 
+                    
+{/*<MDBInput
+                                            min={0}
+                                            type="number"
+                                            size="sm"
+                                            style={{ width: "50px" }}
+                                            defaultValue={2}
+                                        />
+
+                                        <MDBBtn className="px-2" color="link">
+                                            <MDBIcon fas icon="plus" />
+</MDBBtn>*/}
 
 // <section className="h-100 gradient-custom">
 

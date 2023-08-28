@@ -20,18 +20,25 @@ import axios from 'axios';
 
 
 const ProductCard = ({ addToCart }) => {
-    const[count,setCount]=useState(0)
-    const[menuItems,setMenuItems]=useState([])
+    const [count, setCount] = useState(0)
+    const [menuItems, setMenuItems] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:4000/menu')
+        axios.get('https://burger-6t4w.onrender.com/menu')
         .then(response => {
             setMenuItems(response.data);
           })
           .catch(error => {
             console.error('Error fetching menu:', error);
           });
-    
-      }, []);
+        // fetch('http://localhost:4000/menu')
+
+        //     .then(value => {
+        //         setMenuItems(value.data)
+        //     })
+        //     .catch(error => {
+        //         console.error('Error fetching menu:', error);
+        //     });
+    }, []);
     return (
         <div>
             <MDBContainer fluid className="my-5 text-center">

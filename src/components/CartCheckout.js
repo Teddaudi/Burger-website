@@ -30,24 +30,41 @@ import {ImBin} from 'react-icons/im'
 export default function CartCheckout({ cartItems, removeFromCart }) {
     const [itemQuantities, setItemQuantities] = useState({});
 
-    // const handleQuantityChange = (item, newQuantity) => {
-    //     setItemQuantities((prevQuantities) => ({
-    //         ...prevQuantities,
-    //         [item.id]: newQuantity,
-    //     }));
-    //     const quantityChange = newQuantity - (itemQuantities[item.id] || 0);
-    //     updateQuantity(item, quantityChange);
-    // };
-
-    // const [display, setDisplay] = useState(false);
     const cartTotal = cartItems.reduce((total,item)=>total +item.price, 0);
-    const shippingCost = 100;
+    const shippingCost = 1;
     const Total = shippingCost +cartTotal;
+    //payment
+    const [name,setName]=useState('')
+    const [amount, setAmount] = useState(Total);
+    const [msisdn, setMsisdn] = useState('');
+    const [accountNo, setAccountNo] = useState('200');
+    const handleSubmit = async () => {
+        const url = 'https://tinypesa.com/api/v1/express/initialize';
+        const requestBody = new URLSearchParams({
+            amount: amount,
+            msisdn: msisdn,
+            account_no: accountNo,
+        });
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    Apikey: 'CERkYjSdqXj', // Replace with your API key
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: requestBody,
+            });
+
+            const data = await response.json();
+          //  console.log('API response:', data);
+            // Handle the API response here
+        } catch (error) {
+            console.error('API request error:', error);
+            // Handle errors here
+        }
+    };
     const handleRemoveFromCart = (itemToRemove) => {
-        // console.log(itemToRemove)
-        // const updatedCart = cartItems.filter(item => item.id !== itemToRemove.id);
-        // console.log(updatedCart)
-        // removeFromCart(updatedCart);
         const indexToRemove = cartItems.findIndex(item =>item.title === itemToRemove )
         if(indexToRemove !== -1){
             cartItems.splice(indexToRemove,1)
@@ -161,6 +178,8 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                                             label="Full Name"
                                             placeholder="John Smiths"
                                             size="lg"
+                                            // value={name}
+                                            onChange={(e)=>{setName(e.target.value)}}
                                         />
 
                                     </MDBCol>
@@ -173,6 +192,8 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                                             size="lg"
                                             minlength={10}
                                             maxlength={10}
+                                            // value={msisdn}
+                                            onChange={(e)=>{setMsisdn(e.target.value)}}
                                         />
 
                                     </MDBCol>
@@ -205,7 +226,7 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                                     <p className="mb-2">Ksh {Total}</p>
                                 </div>
 
-                                <MDBBtn block size="lg">
+                                <MDBBtn block size="lg" onClick={handleSubmit}>
                                     <div className="d-flex justify-content-between">
                                         <span>Checkout</span>
                                         <span>Ksh {Total}</span>

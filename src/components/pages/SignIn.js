@@ -68,7 +68,7 @@ function SignIn() {
                   <div className='d-flex justify-content-center'>
                     <button className='btn btn-success btn-block btn-lg  text-body' type="button" onClick={handleSubmit}>Log In</button>
                   </div>
-                  <p className="text-center text-muted mt-5 mb-0">Don't have an account?<Link to='/signup'
+                  <p className="text-center text-muted mt-5 mb-0">Don't have an account?<Link to='/'
                     className="fw-bold text-body"> <u>Sign Up Here</u></Link></p>
                 </div>
               </div>

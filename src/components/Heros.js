@@ -18,7 +18,7 @@ const Heros = () => {
     return (
         <div>
             <nav className='d-flex justify-content-between align-items-center' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Link to='/'>
+                <Link to='/hero'>
                     <img src={Logo} alt="logo img" className="logo" />
                 </Link>
                 <ul className={`nav-links ${navOpen ? 'nav-open' : ''}`} style={{ display: 'flex', alignItems: 'center', listStyle: 'none', margin: 0, padding: 0 }}>
@@ -51,13 +51,15 @@ const Heros = () => {
                         <p className="section-description">Get your team in sync, no matter your location. Streamline processes,
                             create team
                             rituals and watch productivity soar.</p>
-                        <button className="btn">Order now</button>
+
+                            <Link to='/menu' className='btn'> Order now</Link>
+                        
                     </div>
                 </div>
                 <picture className="img-container">
-                    <source
+                    {/* <source
                         srcset="https://img.freepik.com/premium-photo/divided-hamburger_147620-1303.jpg?size=626&ext=jpg&uid=R107934376&ga=GA1.2.831985192.1688442252&semt=sph"
-                        media="(width < 70em)" />
+                   media="(width < 70em)" />*/}
                     <img src="https://img.freepik.com/premium-photo/divided-hamburger_147620-1303.jpg?size=626&ext=jpg&uid=R107934376&ga=GA1.2.831985192.1688442252&semt=sph"
                         alt="" className="hero-img" />
                 </picture>

@@ -29,15 +29,7 @@ const ProductCard = ({ addToCart }) => {
           })
           .catch(error => {
             console.error('Error fetching menu:', error);
-          });
-        // fetch('http://localhost:4000/menu')
-
-        //     .then(value => {
-        //         setMenuItems(value.data)
-        //     })
-        //     .catch(error => {
-        //         console.error('Error fetching menu:', error);
-        //     });
+          });    
     }, []);
     return (
         <div>

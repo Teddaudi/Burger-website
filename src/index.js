@@ -7,11 +7,12 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import {BrowserRouter as Router } from 'react-router-dom';
 import Navigation from './components/pages/Navigation';
 import App from './App';
+import Nav from './components/pages/Nav';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
-    <Navigation />
+    <App />
   </Router>
 );
 

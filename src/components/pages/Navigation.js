@@ -11,7 +11,7 @@ const Navigation = () => {
     useEffect(() => {
       const accessToken = userAccessToken();
       if (!accessToken) {
-        navigate("/login", { replace: true });
+        navigate("/signup", { replace: true });
       } else {
         const [userInfo] = fetchUser();
         setUser(userInfo);
@@ -20,7 +20,7 @@ const Navigation = () => {
     }, []);
   return (
    <Routes>
-        <Route path='login' element={<SignUp/>}/>
+        <Route path='signup' element={<SignUp/>}/>
         <Route path='/*' element={<App user={user}/>}/>
    </Routes>
   )

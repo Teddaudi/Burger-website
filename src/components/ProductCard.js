@@ -17,23 +17,32 @@ import { AiOutlineArrowLeft } from 'react-icons/ai'
 import { BsFillCartPlusFill } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Spinner from './util/Spinner';
 
 
 const ProductCard = ({ addToCart }) => {
     const [count, setCount] = useState(0)
+    const [loading, setLoading] = useState(true);
     const [menuItems, setMenuItems] = useState([])
     useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 12000);
         axios.get('https://burger-6t4w.onrender.com/menu')
-        .then(response => {
-            setMenuItems(response.data);
-          })
-          .catch(error => {
-            console.error('Error fetching menu:', error);
-          });    
+            .then(response => {
+                setMenuItems(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching menu:', error);
+            });
     }, []);
+    const handleAddToCart = (product) => {
+        addToCart(product); 
+        setCount(count + 1); 
+      };
     return (
         <div>
-            <MDBContainer fluid className="my-5 text-center">
+            {loading ? <Spinner /> : <MDBContainer fluid className="my-5 text-center">
 
                 <h4 className="mt-4 mb-5">
                     <strong>Our Menu</strong>
@@ -69,14 +78,14 @@ const ProductCard = ({ addToCart }) => {
                                         <MDBCardText className="mb-3">
                                             Ksh {products.price}
                                         </MDBCardText>
-                                        <MDBBtn href='#' className="btn btn-warning mb-3" onClick={() => addToCart(products)}>Add To Cart</MDBBtn>
+                                        <MDBBtn href='#' className="btn btn-warning mb-3" onClick={() => handleAddToCart(products)}>Add To Cart</MDBBtn>
                                     </MDBCardBody>
                                 </MDBCard>
                             </MDBCol>
                         ))
                     }
                 </MDBRow>
-            </MDBContainer>
+            </MDBContainer>}
 
         </div>
 

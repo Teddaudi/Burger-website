@@ -27,7 +27,7 @@ const ProductCard = ({ addToCart }) => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 12000);
+        }, 20000);
         axios.get('https://burger-6t4w.onrender.com/menu')
             .then(response => {
                 setMenuItems(response.data);

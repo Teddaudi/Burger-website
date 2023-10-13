@@ -69,9 +69,4 @@ const Heros = () => {
 }
 
 export default Heros;
-                // <div class="clients">
-                //     <img src={Databiz} alt="" class="client-logo" />
-                //     <img src={ClientAudio} alt="" class="client-logo" />
-                //     <img src={ClientMeet} alt="" class="client-logo" />
-                //     <img src={ClientMaker} alt="" class="client-logo" />
-                // </div>
+               

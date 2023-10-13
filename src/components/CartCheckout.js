@@ -4,32 +4,22 @@ import {
     MDBBtn,
     MDBCard,
     MDBCardBody,
-    MDBCardHeader,
-    MDBCardImage,
     MDBCol,
     MDBContainer,
     MDBIcon,
     MDBInput,
-    MDBListGroup,
-    MDBListGroupItem,
     MDBRadio,
-    MDBRipple,
     MDBRow,
     MDBTable,
     MDBTableBody,
     MDBTableHead,
-    MDBTooltip,
     MDBTypography,
 } from "mdb-react-ui-kit";
-import data from '../data'
-import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FcSimCard } from "react-icons/fc"
 import { ImBin } from 'react-icons/im'
 
 export default function CartCheckout({ cartItems, removeFromCart }) {
-    const [itemQuantities, setItemQuantities] = useState({});
-
     const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
     const shippingCost = 1;
     const Total = shippingCost + cartTotal;
@@ -40,6 +30,7 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
     const [msisdn, setMsisdn] = useState('');
     const [phone, setPhone] = useState('');
     const [accountNo, setAccountNo] = useState('200');
+   
     const handleSubmit = async (e) => {
         e.preventDefault()
         handleOrders(e)
@@ -65,15 +56,12 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
             console.error('API request error:', error);
         }
     };
+   
     const handleRemoveFromCart = (itemToRemove) => {
-        const indexToRemove = cartItems.findIndex(item => item.title === itemToRemove)
-        if (indexToRemove !== -1) {
-            cartItems.splice(indexToRemove, 1)
-        } else {
-            console.log(`Burger ${itemToRemove} not found in the array.`)
-        }
-        console.log(cartItems)
+        const updatedCartItems = cartItems.filter(item => item.title !== itemToRemove.title);
+        removeFromCart(updatedCartItems); // Update the cart by passing the updated array to removeFromCart
     }
+
     const handleOrders = async (e) => {
         e.preventDefault()
        
@@ -111,7 +99,7 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                 ) : (
                     <MDBRow className="justify-content-center align-items-center h-100">
                         <MDBCol>
-                            <MDBTypography tag="h7">
+                            <MDBTypography tag="h4">
                                 <Link to="/menu" className="text-body">
                                     <MDBIcon fas icon="long-arrow-alt-left me-2 mb-4" /> Continue
                                     shopping
@@ -135,9 +123,8 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                                                 <th scope="row">
                                                     <div className="d-flex align-items-center">
                                                         <img
-                                                            src={data.image}
-                                                            fluid
-                                                            className="rounded-3"
+                                                            src={data.image}                                                           
+                                                            className="img-fluid rounded-3"
                                                             style={{ width: "120px" }}
                                                             alt="Book"
                                                         />
@@ -152,10 +139,8 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                                                 <td className="align-middle">
                                                     <div className="d-flex flex-row align-items-center">
                                                         <MDBBtn className="px-2" color="link">
-                                                            <ImBin color="#dc3545" onClick={() => handleRemoveFromCart(data)} />
+                                                            <ImBin color="#dc3545" onClick={() => removeFromCart(data)} />
                                                         </MDBBtn>
-
-
                                                     </div>
                                                 </td>
                                                 <td className="align-middle">
@@ -219,8 +204,8 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
                                                     label="M-pesa Phone Number"
                                                     placeholder="0707894407"
                                                     size="lg"
-                                                    minlength={10}
-                                                    maxlength={10}
+                                                    minLength={10}
+                                                    maxLength={10}
                                                     value={msisdn}
                                                     onChange={(e) => { setMsisdn(e.target.value) }}
                                                 />
@@ -273,209 +258,29 @@ export default function CartCheckout({ cartItems, removeFromCart }) {
 }
 
 
-{/*<MDBInput
-                                            min={0}
-                                            type="number"
-                                            size="sm"
-                                            style={{ width: "50px" }}
-                                            defaultValue={2}
-                                        />
+    // const handleRemoveFromCart = (item) => {
+    //     removeFromCart(item);
+    // };
 
-                                        <MDBBtn className="px-2" color="link">
-                                            <MDBIcon fas icon="plus" />
-</MDBBtn>*/}
+ // const handleRemoveFromCart = (itemToRemove) => {
 
-// <section className="h-100 gradient-custom">
-
-//     <MDBContainer className="py-5 h-100 ">
-//         <h2>Your Cart</h2>
-//         {cartItems.length === 0 ? (
-//             <p>Your cart is empty</p>
-//         ) : (
-//             <MDBRow className="justify-content-center my-4 ">
-
-//                 <MDBCol md="8">
-//                     <MDBCard className="mb-4">
-
-//                         <MDBCardHeader className="py-2 d-flex">
-//                             <MDBTypography tag="h5" className="mb-0">
-//                                 <Link to="/">
-//                                     <AiOutlineArrowLeft color='black' fontSize='2.5em' onMouseOver={({ target }) => target.style.color = "orange"}
-//                                         onMouseOut={({ target }) => target.style.color = "black"} className='d-flex mb-1 ' id='leftArrow' />
-//                                 </Link>
-
-//                             </MDBTypography>
-//                         </MDBCardHeader>
-//                         {
-//                             cartItems.map((data) => (
-//                                 <MDBCardBody>
-
-//                                     <MDBRow>
-//                                         <MDBCol lg="3" md="12" className="mb-4 mb-lg-0">
-//                                             <MDBRipple rippleTag="div" rippleColor="light"
-//                                                 className="bg-image rounded hover-zoom hover-overlay">
-//                                                 <img
-//                                                     src={data.image}
-//                                                     className="w-100" />
-//                                                 <a href="#!">
-//                                                     <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.2)", }}>
-//                                                     </div>
-//                                                 </a>
-//                                             </MDBRipple>
-//                                         </MDBCol>
-
-//                                         <MDBCol lg="5" md="6" className=" mb-4 mb-lg-0">
-//                                             <p>
-//                                                 <strong>{data.title}</strong>
-//                                             </p>
-
-
-//                                             <MDBTooltip wrapperProps={{ size: "sm" }} wrapperClass="me-1 mb-2"
-//                                                 title="Remove item">
-//                                                 <MDBIcon fas icon="trash" onClick={() => removeFromCart(data)} />
-//                                             </MDBTooltip>
-
-//                                             <MDBTooltip wrapperProps={{ size: "sm", color: "danger" }} wrapperClass="me-1 mb-2"
-//                                                 title="Move to the wish list">
-//                                                 <MDBIcon fas icon="heart" />
-//                                             </MDBTooltip>
-//                                         </MDBCol>
-//                                         <MDBCol lg="4" md="6" className="mb-4 mb-lg-0">
-//                                             <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
-//                                                 <MDBBtn
-//                                                     className="px-3 me-2"
-//                                                     onClick={() => handleQuantityChange(data, (itemQuantities[data.id] || 1) - 1)}
-//                                                 >
-//                                                     <MDBIcon fas icon="minus" />
-//                                                 </MDBBtn>
-//                                                 <MDBInput
-//                                                     value={itemQuantities[data.id] || 1}
-//                                                     min={0}
-//                                                     type="number"
-//                                                     label="Quantity"
-//                                                     onChange={(e) => handleQuantityChange(data, parseInt(e.target.value))}
-//                                                 />
-//                                                 <MDBBtn
-//                                                     className="px-3 ms-2"
-//                                                     onClick={() => handleQuantityChange(data, (itemQuantities[data.id] || 1) + 1)}
-//                                                 >
-//                                                     <MDBIcon fas icon="plus" />
-//                                                 </MDBBtn>
-//                                             </div>
-//                                             <p className="text-start text-md-center">
-//                                                 <strong>KSh {data.price}</strong>
-//                                             </p>
-//                                         </MDBCol>
-//                                     </MDBRow>
-
-//                                     <hr className="my-4" />
-
-
-//                                 </MDBCardBody>
-//                             ))
-//                         }
-//                     </MDBCard>
-
-
-
-//                 </MDBCol>
-
-
-
-//             </MDBRow>
-//         )}
-//     </MDBContainer>
-// </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function CartItem({ item, updateQuantity, removeFromCart }) {
-//     const [quantity, setQuantity] = useState(item.quantity);
-
-//     const decreaseQuantity = () => {
-//         if (quantity > 1) {
-//             setQuantity(quantity - 1);
-//             updateQuantity(item, -1);
-//         }
-//     };
-
-//     const increaseQuantity = () => {
-//         setQuantity(quantity + 1);
-//         updateQuantity(item, 1);
-//     };
-
-//     return (
-//         <div className="cart-item">
-//         <div className="item-image">
-//         <img src={item.image} alt={item.title} />
-//     </div>
-//     <div className="item-details">
-//         <h3>{item.title}</h3>
-//         <p>Price: ${item.price}</p>
-//         <div className="quantity-controls">
-//             <button onClick={decreaseQuantity}>-</button>
-//             <span>{quantity}</span>
-//             <button onClick={increaseQuantity}>+</button>
-//         </div>
-//         <button onClick={() => removeFromCart(item)}>Remove</button>
-//     </div>
-//         </div>
-//     );
-// }
-//     <MDBCol md="4">
-//     <MDBCard className="mb-4">
-//         <MDBCardHeader>
-//             <MDBTypography tag="h5" className="mb-0">
-//                 Summary
-//             </MDBTypography>
-//         </MDBCardHeader>
-
-//     </MDBCard>
-// </MDBCol>
-{/*    <MDBCardBody>
-    <MDBListGroup flush>
-        <MDBListGroupItem
-            className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-            Products
-            <span>Ksh 53.98</span>
-        </MDBListGroupItem>
-        <MDBListGroupItem className="d-flex justify-content-between align-items-center px-0">
-            Shipping
-            <span>Gratis</span>
-        </MDBListGroupItem>
-        <MDBListGroupItem
-            className="d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-            <div>
-                <strong>Total amount</strong>
-                <strong>
-                    <p className="mb-0">(including VAT)</p>
-                </strong>
-            </div>
-            <span>
-                <strong>KSh 53.98</strong>
-            </span>
-        </MDBListGroupItem>
-    </MDBListGroup>
-
-    <MDBBtn block size="lg">
-        Go to checkout
-    </MDBBtn>
-</MDBCardBody>*/}
-
-
+    //     console.log(cartItems)
+    //     const indexToRemove = cartItems.findIndex(item => item.title !== itemToRemove)
+    //     if (indexToRemove !== -1) {
+    //         cartItems.splice(indexToRemove, 1)
+    //     } else {
+    //         console.log(`Burger ${itemToRemove} not found in the array.`)
+    //     }
+        
+    // }
+    // const handleRemoveFromCart = (itemToRemove) => {
+    //     console.log(itemQuantities);
+    //     const indexToRemove = cartItems.findIndex(item => item.title === itemToRemove.title);
+      
+    //     if (indexToRemove !== -1) {
+    //       const updatedCartItems = [...cartItems.slice(0, indexToRemove), ...cartItems.slice(indexToRemove + 1)];      
+    //       setItemQuantities(updatedCartItems);
+    //     } else {
+    //       console.log(`Item "${itemToRemove.title}" not found in the cart.`);
+    //     }
+    //   };

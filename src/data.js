@@ -86,5 +86,34 @@ const burgers = [
       amount: 1,
     },
 ];
-
+const objectArray=[
+  {
+      "_id": "64db0e8c88fdd6624e9b7d36",
+      "title": "Hamburger",
+      "price": 2,
+      "image": "https://img.freepik.com/free-photo/delicious-meat-sandwich-with-tomatoes-green-dark-surface-close-up-shot_179666-42483.jpg?size=626&ext=jpg&uid=R107934376&ga=GA1.2.1322095638.1686651987&semt=sph",
+      "__v": 0
+  },
+  {
+      "_id": "64db0e8c88fdd6624e9b7d33",
+      "title": "Beef Burger",
+      "price": 3,
+      "image": "https://t3.ftcdn.net/jpg/02/09/77/52/240_F_209775210_ntMYPohb7QxBgGs08t3yoc60etwX357g.jpg",
+      "__v": 0
+  },
+  {
+      "_id": "64db0e8c88fdd6624e9b7d3c",
+      "title": "Elk burger",
+      "price": 4,
+      "image": "https://www.finedininglovers.com/sites/g/files/xknfdk626/files/2022-05/burger.jpg",
+      "__v": 0
+  },
+  {
+      "_id": "64db0e8c88fdd6624e9b7d34",
+      "title": "Chicken Burger",
+      "price": 1,
+      "image": "https://t3.ftcdn.net/jpg/04/47/73/06/240_F_447730659_uGlJcY17hW7T63jwUG46KhDts9jLxbA7.jpg",
+      "__v": 0
+  }
+]
 export default burgers;

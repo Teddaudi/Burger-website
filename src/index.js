@@ -1,18 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom'; // Correct import
 import './index.css';
-// import App from './App';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import {BrowserRouter as Router } from 'react-router-dom';
-import Navigation from './components/pages/Navigation';
 import App from './App';
-import Nav from './components/pages/Nav';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
 root.render(
   <Router>
     <App />
   </Router>
 );
-

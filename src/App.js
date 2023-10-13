@@ -1,40 +1,64 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
+import React, { useEffect, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import axios from "axios";
 import CartCheckout from "./components/CartCheckout";
 import Heros from "./components/Heros";
 import ProductCard from "./components/ProductCard";
 import ContactForm from "./components/ContactForm";
-import { useEffect, useState } from "react";
-import SignUp from "./components/pages/SignUp";
-import SignIn from "./components/pages/SignIn";
+import Test2 from "./components/pages/Test2";
+import Test from "./components/pages/Test";
 
-
-function App({ isAuthenticated }) {
+function App() {
   const [cartItems, setCartItems] = useState([]);
-  
+  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [menu, setMenu] = useState([]);
+
   const addToCart = (item) => {
     setCartItems([...cartItems, item]);
-    console.log(cartItems)
   };
 
-  const removeFromCart = (itemToRemove) => {
-    const updatedCart = cartItems.filter(item => item.id !== itemToRemove.id);
+  const removeFromCart = (item) => {
+    const updatedCart = cartItems.filter((cartItem) => cartItem.id !== item.id);
     setCartItems(updatedCart);
   };
 
+  
 
+  const PrivateRoute = ({ element: Component,isAuthenticated  }) => {
+    return userIsAuthenticated ? <Component /> : <Navigate to="/login" />;
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("Email");
+    if (user) {
+      setUserIsAuthenticated(true);
+    }
+    setTimeout(() => {
+      setLoading(false);
+      axios
+        .get("https://burger-6t4w.onrender.com/menu")
+        .then((res) => {
+          setMenu(res.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching menu:", error);
+        });
+    }, 30000); // Reduced the timeout to 3 seconds for testing
+  }, []);
 
   return (
-    <div>
-      <Routes>
-        <Route path="/hero" element={<Heros />} key={1} />
-        <Route path="/menu" element={<ProductCard addToCart={addToCart} key={2} />} />
-        <Route path="/cart" element={<CartCheckout cartItems={cartItems} removeFromCart={removeFromCart} key={3} />} />
-        <Route path="/contact" element={<ContactForm />} key={4} />
-        <Route path="/" element={<SignUp />} key={5} />
-        <Route path="/signin" element={<SignIn />} key={6} />
-        </Routes>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={<PrivateRoute element={Heros} />}
+      />
+      <Route path="/menu" element={<ProductCard addToCart={addToCart} menu={menu} loading={loading} />} />
+      <Route path="/cart" element={<CartCheckout cartItems={cartItems} removeFromCart={removeFromCart} />} />
+      <Route path="/contact" element={<ContactForm />} />
+      <Route path="/signup" element={<Test2 />} />
+      <Route path="/login" element={<Test />} />
+    </Routes>
   );
 }
 

@@ -57,3 +57,11 @@ body {
   height: 100%;
   background-color: #ffffff !important;
 }
+
+
+
+
+/* Others test2.js */
+body {
+  background-color: hsl(0, 0%, 96%);
+}

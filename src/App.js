@@ -5,15 +5,15 @@ import CartCheckout from "./components/CartCheckout";
 import Heros from "./components/Heros";
 import ProductCard from "./components/ProductCard";
 import ContactForm from "./components/ContactForm";
-import Test2 from "./components/pages/Test2";
-import Test from "./components/pages/Test";
+//import isAuthenticated from "./components/util/localStorage";
+import Login from "./components/pages/Login";
+import SignUp from "./components/pages/SignUp";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
-  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [menu, setMenu] = useState([]);
-
+  const[isAuthenticated,setIsAuthenticated]=useState(true)
   const addToCart = (item) => {
     setCartItems([...cartItems, item]);
   };
@@ -23,41 +23,38 @@ function App() {
     setCartItems(updatedCart);
   };
 
-  
-
-  const PrivateRoute = ({ element: Component,isAuthenticated  }) => {
-    return userIsAuthenticated ? <Component /> : <Navigate to="/login" />;
+  const PrivateRoute = ({ element: Component }) => {
+    return isAuthenticated ? <Component /> : <Navigate to="/login" />;
   };
 
   useEffect(() => {
-    const user = localStorage.getItem("Email");
-    if (user) {
-      setUserIsAuthenticated(true);
-    }
-    setTimeout(() => {
-      setLoading(false);
-      axios
-        .get("https://burger-6t4w.onrender.com/menu")
-        .then((res) => {
-          setMenu(res.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching menu:", error);
-        });
-    }, 30000); // Reduced the timeout to 3 seconds for testing
+    // Fetch the menu data
+    axios
+      .get("https://burger-6t4w.onrender.com/menu")
+      .then((res) => {
+        setMenu(res.data);
+        setLoading(false); // Set loading to false when data is fetched
+      })
+      .catch((error) => {
+        console.error("Error fetching menu:", error);
+        setLoading(false); // Set loading to false even in case of an error
+      });
   }, []);
 
   return (
     <Routes>
+      <Route path="/" element={<PrivateRoute element={Heros} />} />
       <Route
-        path="/"
-        element={<PrivateRoute element={Heros} />}
+        path="/menu"
+        element={<PrivateRoute element={() => <ProductCard addToCart={addToCart} menu={menu} loading={loading} />} />}
       />
-      <Route path="/menu" element={<ProductCard addToCart={addToCart} menu={menu} loading={loading} />} />
-      <Route path="/cart" element={<CartCheckout cartItems={cartItems} removeFromCart={removeFromCart} />} />
-      <Route path="/contact" element={<ContactForm />} />
-      <Route path="/signup" element={<Test2 />} />
-      <Route path="/login" element={<Test />} />
+      <Route
+        path="/cart"
+        element={<PrivateRoute element={() => <CartCheckout cartItems={cartItems} removeFromCart={removeFromCart} />} />}
+      />
+      <Route path="/contact" element={<PrivateRoute element={ContactForm} />} />
+      <Route path="/signup" element={<PrivateRoute element={SignUp} />} />
+      <Route path="/login" element={<PrivateRoute element={Login} />} />
     </Routes>
   );
 }

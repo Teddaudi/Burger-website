@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shopping Cart Example</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <ul id="cart">
+        <li data-id="1">Item 1 <button class="delete-button">Delete</button></li>
+        <li data-id="2">Item 2 <button class="delete-button">Delete</button></li>
+        <li data-id="3">Item 3 <button class="delete-button">Delete</button></li>
+    </ul>
+
+    <script>
+        // Function to delete an item from the cart
+        function deleteItem(event) {
+            const item = event.target.parentElement; // Get the <li> element containing the item
+            const itemId = item.getAttribute("data-id"); // Get the item's unique identifier (e.g., ID or data attribute)
+
+            // You can perform additional actions here, like updating the total cost or making an API call to update the server.
+
+            item.remove(); // Remove the item from the cart
+        }
+
+        // Add event listeners to delete buttons
+        const deleteButtons = document.querySelectorAll(".delete-button");
+        deleteButtons.forEach(button => {
+            button.addEventListener("click", deleteItem);
+        });
+    </script>
+</body>
+</html>

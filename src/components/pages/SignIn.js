@@ -12,7 +12,7 @@ import Notification from '../Notification/Notification';
 function SignIn() {
   const auth = getAuth(app);
   const [notifications, setNotifications] = useState([]);
-
+  const navigate = useNavigate();
   const showNotification = (message, backgroundColor) => {
       setNotifications([...notifications, { message, backgroundColor }]);
       setTimeout(() => {
@@ -27,7 +27,7 @@ function SignIn() {
     let inputs = { [event.target.name]: event.target.value }
     setData({ ...data, ...inputs })
   }
-  const navigate = useNavigate();
+
   const handleSubmit = () => {
     showNotification('Succesfully logged in!')
     signInWithEmailAndPassword(auth, data.email, data.password)
